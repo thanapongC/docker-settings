@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    restart: always
+    ports:
+      - "8080:8080" # พอร์ตสำหรับเข้าถึง Jenkins GUI
+      - "50000:50000" # พอร์ตสำหรับการเชื่อมต่อ Jenkins Agent
+    volumes:
+      - jenkins_home:/var/jenkins_home # เก็บข้อมูล Jenkins
+      - /var/run/docker.sock:/var/run/docker.sock # เชื่อมต่อกับ Docker Host
+      - /usr/bin/docker:/usr/bin/docker # เรียกใช้ Docker CLI
+    environment:
+      TZ: Asia/Bangkok # ตั้งค่า Timezone
+    user: root # ใช้สิทธิ์ root เพื่อให้ Jenkins สามารถเรียกใช้งาน Docker ได้
+
+volumes:
+  jenkins_home:
