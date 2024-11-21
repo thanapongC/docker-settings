@@ -1,58 +1,17 @@
 version: '3.8'
 
 services:
-  kong-database:
-    image: postgres:15
-    container_name: kong-database
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
     restart: always
-    environment:
-      POSTGRES_USER: kong
-      POSTGRES_DB: kong
-      POSTGRES_PASSWORD: kong
     ports:
-      - 5432:5432
-
-  kong-migration:
-    image: kong:latest
-    container_name: kong-migration
-    depends_on:
-      - kong-database
+      - "9000:9000" # พอร์ตสำหรับเข้าถึง GUI
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # ใช้สำหรับเชื่อมต่อ Docker Host
+      - portainer_data:/data # เก็บข้อมูลของ Portainer
     environment:
-      KONG_DATABASE: postgres
-      KONG_PG_HOST: kong-database
-      KONG_PG_USER: kong
-      KONG_PG_PASSWORD: kong
-      KONG_CASSANDRA_CONTACT_POINTS: none
-    command: kong migrations bootstrap
+      TZ: Asia/Bangkok # ตั้งค่า Timezone ตามพื้นที่ของคุณ
 
-  kong:
-    image: kong:latest
-    container_name: kong
-    depends_on:
-      - kong-migration
-    environment:
-      KONG_DATABASE: postgres
-      KONG_PG_HOST: kong-database
-      KONG_PG_USER: kong
-      KONG_PG_PASSWORD: kong
-      KONG_PROXY_ACCESS_LOG: /dev/stdout
-      KONG_ADMIN_ACCESS_LOG: /dev/stdout
-      KONG_PROXY_ERROR_LOG: /dev/stderr
-      KONG_ADMIN_ERROR_LOG: /dev/stderr
-      KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
-    ports:
-      - 8000:8000   # HTTP Proxy
-      - 8443:8443   # HTTPS Proxy
-      - 8001:8001   # HTTP Admin API
-      - 8444:8444   # HTTPS Admin API
-
-  kong-dashboard:
-    image: pantsel/konga:latest
-    container_name: kong-dashboard
-    restart: always
-    depends_on:
-      - kong
-    environment:
-      DB_ADAPTER: none
-    ports:
-      - 1337:1337
+volumes:
+  portainer_data:
