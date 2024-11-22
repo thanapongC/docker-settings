@@ -3,19 +3,16 @@ version: '3.8'
 services:
   nginx:
     image: nginx:latest
-    container_name: nginx
-    restart: always
+    container_name: nginx_proxy
     ports:
-      - "80:80"      # เปิดพอร์ต HTTP
-      - "443:443"    # เปิดพอร์ต HTTPS
+      - "80:80"
+      - "443:443"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro   # ไฟล์กำหนดค่า Nginx
-      - ./certs:/etc/ssl/certs                 # ใบรับรอง SSL
-      - ./certs:/etc/ssl/private               # ไฟล์คีย์สำหรับ SSL
-
-  reverse-proxy:
-    image: nginx:latest
-    container_name: reverse-proxy
+      - ./nginx/logs:/var/log/nginx  # แชร์ log (ถ้าต้องการ)
     restart: always
-    volumes:
-      - ./proxy.conf:/etc/nginx/conf.d/default.conf:ro   # ไฟล์ Reverse Proxy Configuration
+    networks:
+      - proxy_network
+
+networks:
+  proxy_network:
+    driver: bridge
