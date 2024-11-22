@@ -26,7 +26,7 @@ services:
       PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: N087oo6641405M
     ports:
-      - "8080:80"
+      - "7000:80"
     networks:
       - mysql_network
 
