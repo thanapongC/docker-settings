@@ -6,10 +6,10 @@ services:
     container_name: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: your_root_password
-      MYSQL_DATABASE: your_database_name
-      MYSQL_USER: your_user
-      MYSQL_PASSWORD: your_password
+      MYSQL_ROOT_PASSWORD: N087oo6641405M
+      MYSQL_DATABASE: icutethink
+      MYSQL_USER: adminnoom
+      MYSQL_PASSWORD: N087oo6641405M
     ports:
       - "3306:3306"
     volumes:
@@ -24,7 +24,7 @@ services:
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_ROOT_PASSWORD: N087oo6641405M
     ports:
       - "8080:80"
     networks:
