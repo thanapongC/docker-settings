@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   webmin:
-    image: docker.io/webmin/webmin
+    image: jamiephillips/webmin:latest
     container_name: webmin
     restart: always
     ports:
@@ -12,6 +12,7 @@ services:
     volumes:
       - webmin_data:/etc/webmin
       - /:/mnt/host:ro
+    network_mode: host # เพื่อให้ Webmin เข้าถึงเครือข่ายโฮสต์ได้โดยตรง
 
   nginx-reverse-for-webmin:
     image: nginx:latest
