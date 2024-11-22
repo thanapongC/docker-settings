@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   webmin:
-    image: jamiephillips/webmin:latest
+    image: vulhub/webmin:latest
     container_name: webmin
     restart: always
     ports:
