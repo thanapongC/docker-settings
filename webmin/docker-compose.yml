@@ -1,37 +1,29 @@
 version: '3.8'
 
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: mysql
+  webmin:
+    image: docker.io/webmin/webmin
+    container_name: webmin
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: your_root_password
-      MYSQL_DATABASE: your_database_name
-      MYSQL_USER: your_user
-      MYSQL_PASSWORD: your_password
     ports:
-      - "3306:3306"
+      - "10000:10000"
+    environment:
+      WEBMIN_ROOT_PASSWORD: N087oo6641405M
     volumes:
-      - mysql_data:/var/lib/mysql
-    networks:
-      - mysql_network
+      - webmin_data:/etc/webmin
+      - /:/mnt/host:ro
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
+  nginx-reverse-for-webmin:
+    image: nginx:latest
+    container_name: nginx
     restart: always
-    environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: your_root_password
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro # ใช้ไฟล์กำหนดค่า Nginx
     ports:
-      - "8080:80"
-    networks:
-      - mysql_network
+      - "80:80" # สำหรับ HTTP
+      - "443:443" # สำหรับ HTTPS
+    depends_on:
+      - webmin
 
 volumes:
-  mysql_data:
-
-networks:
-  mysql_network:
+  webmin_data:
