@@ -4,10 +4,10 @@ services:
     container_name: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: N087oo6641405M
-      MYSQL_DATABASE: icutethink
-      MYSQL_USER: adminnoom
-      MYSQL_PASSWORD: N087oo6641405M
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: qr_ordering_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 12345678
     ports:
       - "3306:3306"
     volumes:
@@ -16,15 +16,15 @@ services:
       - mysql_network
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin
     container_name: phpmyadmin
     restart: always
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: N087oo6641405M
+      MYSQL_ROOT_PASSWORD: 12345678
     ports:
-      - "7000:80"
+      - "8080:80"
     networks:
       - mysql_network
 
@@ -33,3 +33,5 @@ volumes:
 
 networks:
   mysql_network:
+    driver: bridge
+
