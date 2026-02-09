@@ -23,7 +23,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: admin@example.com
       PGADMIN_DEFAULT_PASSWORD: N087oo6641405M
     ports:
-      - "127.0.0.1:5050:80"   # 🔐 bind แค่ localhost
+      - "127.0.0.1:5050:5050"   # 🔐 bind แค่ localhost
     depends_on:
       - postgres
     networks:
