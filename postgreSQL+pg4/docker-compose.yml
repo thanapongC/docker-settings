@@ -10,6 +10,8 @@ services:
       POSTGRES_PASSWORD: N087oo6641405M
       POSTGRES_DB: mydb
       TZ: Asia/Bangkok
+    ports:
+      - "5432:5432"   # สำคัญมาก
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
