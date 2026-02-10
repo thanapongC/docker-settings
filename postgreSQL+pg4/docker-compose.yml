@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   postgres:
-    image: postgres:16
+    image: postgres:18
     container_name: postgres
     restart: always
     environment:
@@ -12,7 +12,7 @@ services:
       TZ: Asia/Bangkok
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - /home/thanapongchun:/var/lib/pgadmin/storage
+      - /home/user:/var/lib/pgadmin/storage
 
   pgadmin:
     image: dpage/pgadmin4
