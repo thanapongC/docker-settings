@@ -12,7 +12,6 @@ services:
       TZ: Asia/Bangkok
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - /home/user:/var/lib/pgadmin/storage
 
   pgadmin:
     image: dpage/pgadmin4
