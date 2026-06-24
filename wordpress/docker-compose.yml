@@ -1,0 +1,33 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: i_queue_wordpress
+      MYSQL_USER: iqueuewordpress
+      MYSQL_PASSWORD: 4&0G4tW@/z=5
+    volumes:
+      - db_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+
+  wordpress:
+    image: wordpress:latest
+    container_name: i-queue-wordpress
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: mysql:3306
+      WORDPRESS_DB_USER: iqueuewordpress
+      WORDPRESS_DB_PASSWORD: 4&0G4tW@/z=5
+      WORDPRESS_DB_NAME: i_queue_wordpress
+    volumes:
+      - wordpress_data:/var/www/html
+
+volumes:
+  db_data:
+  wordpress_data:
