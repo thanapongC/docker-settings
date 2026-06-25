@@ -19,7 +19,7 @@ services:
     depends_on:
       - mysql
     ports:
-      - "8080:80"
+      - "3006:80"
     environment:
       WORDPRESS_DB_HOST: mysql:3306
       WORDPRESS_DB_USER: iqueuewordpress
